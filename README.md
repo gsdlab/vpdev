@@ -14,6 +14,8 @@ For more information, see:
 * The recording of the talk [Morning Session 2](http://gsd.uwaterloo.ca/PLEWorkshop2013#MorningSession2),
 * The paper in the ICSE'2014 New Ideas and Emergning Research (NIER) track [Flexible Product Line Engineering with a Virtual Platform](http://gsd.uwaterloo.ca/node/560).
 
+### Motivation
+
 A real-world example of a virtual platform, which motivates the development of `vpdev`, is *Clafer Web Tools*: 
 [ClaferMooVisualizer](https://github.com/gsdlab/ClaferMooVisualizer) (the "visualizer"), 
 [ClaferConfigurator](https://github.com/gsdlab/ClaferConfigurator) (the "configurator"), and 
@@ -24,7 +26,13 @@ Later, we forked (cloned) the visualizer to create the configurator, which reuse
 Consequently, we forked the visualizer again to create the IDE and propagated a few features from the configurator. 
 During the development, we propagated new features, feature extensions, and bug fixes among these three projects.
 Finally, we extracted the common features into an integrated platform [ClaferToolsUICommonPlatform](https://github.com/gsdlab/ClaferToolsUICommonPlatform), while leaving the unique features in the individual projects.
+The feature models of the three tools are available on the [wiki page](http://t3-necsis.cs.uwaterloo.ca:8091/ClaferToolsPLE/Intro).
 Having a tool such as `vpdev` would have helped us doing feature-oriented development of the three projects and, consequently, managing and benefiting from the virtual platform approach.
+
+### Dogfooding
+
+We intend to develop this project by "eating our own dog food", that is, using the tool in the development of the tool.
+By satisfying our own needs during the development and by ensuring applicability to the Clafer Web Tools virtual platform, we hope the tool will also be useful for others, in general. 
 
 Virtual Platform Development Tool
 ---------------------------------
