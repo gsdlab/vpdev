@@ -29,7 +29,7 @@ Having a tool such as `vpdev` would have helped us doing feature-oriented develo
 Virtual Platform Development Tool
 ---------------------------------
 
-The tool `vpdev` is intended to assist with the typical activities performed during the development with a virtual platform. 
+The tool `vpdev` is intended to assist with the typical activities performed during feature-oriented development and with a virtual platform. 
 `vpdev` is a background process (a web server) that you run locally on a development machine, one instance per project.
 
 The virtual platform depends on a notion of a *feature* and various kinds of *meta-data* about the *project*, the features, and the *assets* of the project.
@@ -126,21 +126,30 @@ processManagement::timeout              // features of config.json
 ```
 
 * To annotate a fragment of a file, use the appropriate comment syntax of the used programming language to mark the beginning and end of the fragment.
-Inside the comment surround the list features with `<|` and `|>` delimiters.
+Inside the comment, surround the list of features with `<|` and `|>` delimiters.
 
 The syntax of the delimiters is based on [Comparison of programming languages (syntax)](http://en.wikipedia.org/wiki/Comparison_of_programming_languages_(syntax)) so that it can be used across all major programming languages.
 
 For example, the `Server/server.js` file could contain a following fragment implementing a feature `processManagement::timeout`:
 
 ```
-                //    <| processManagement::timeout |>
-                core.timeoutProcessClearInactivity(process);
-                core.timeoutProcessSetInactivity(process);
-                //    <| processManagement::timeout |>
+        //    <| processManagement::timeout |>
+        core.timeoutProcessClearInactivity(process);
+        core.timeoutProcessSetInactivity(process);
+        //    <| processManagement::timeout |>
 ```                
 
 The first occurence of the delimiter `<| processManagement::timeout |>` marks the beginning of the fragment. 
 The second, marks the end and can be ommitted indicating that the feature implementation continues until the end of file.
+
+* To annotate a single line of a file, use the appropriate in-line comment syntax of the used programming language to mark the line.
+Inside the comment, surround the list of features with `<||` and `|>` delimiters.
+
+For example, the `Server/server.js` file could contain a following line implementing a feature `processManagement::timeout`:
+
+```
+    core.timeoutProcessSetPing(process);   //    <|| processManagement::timeout |>
+``` 
 
 ### Virtual Platform Dashboard
 
