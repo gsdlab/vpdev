@@ -134,29 +134,33 @@ processManagement::timeout              // features of config.json
 ```
 
 * To annotate a fragment of a file, use the appropriate comment syntax of the used programming language to mark the beginning and end of the fragment.
-Inside the comment, surround the list of features with `<|` and `|>` delimiters.
+Inside the comment, to mark the beginning of the fragment, surround the list of features with `|>` and `|>` delimiters.
+The `>` can be understood as "what's after implements the features".
+Inside the comment, to mark the end of the fragment, surround the list of features with `<|` and `<|` delimiters.
+The `<` can be understood as "what's before' implements the features".
+The new line character can be used instead of the closing delimiter.
 
 The syntax of the delimiters is based on [Comparison of programming languages (syntax)](http://en.wikipedia.org/wiki/Comparison_of_programming_languages_(syntax)) so that it can be used across all major programming languages.
 
 For example, the `Server/server.js` file could contain a following fragment implementing a feature `processManagement::timeout`:
 
 ```
-        //    <| processManagement::timeout |>
+        //    |> processManagement::timeout |>
         core.timeoutProcessClearInactivity(process);
         core.timeoutProcessSetInactivity(process);
-        //    <| processManagement::timeout |>
+        //    <| processManagement::timeout <|
 ```                
 
-The first occurence of the delimiter `<| processManagement::timeout |>` marks the beginning of the fragment. 
-The second, marks the end and can be ommitted indicating that the feature implementation continues until the end of file.
+The delimiter `|> processManagement::timeout |>` marks the beginning of the fragment and `<| processManagement::timeout <|` marks the end. 
+The closing delimiter can be omitted indicating that the feature implementation continues until the end of file.
 
 * To annotate a single line of a file, use the appropriate in-line comment syntax of the used programming language to mark the line.
-Inside the comment, surround the list of features with `<||` and `|>` delimiters.
+Inside the comment, surround the list of features with `|>` and `<|` delimiters.
 
 For example, the `Server/server.js` file could contain a following line implementing a feature `processManagement::timeout`:
 
 ```
-    core.timeoutProcessSetPing(process);   //    <|| processManagement::timeout |>
+    core.timeoutProcessSetPing(process);   //    |> processManagement::timeout <|
 ``` 
 
 ### Virtual Platform Dashboard
