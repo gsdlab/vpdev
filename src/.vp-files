@@ -1,0 +1,6 @@
+Application.hs
+server compile
+Main.hs
+server
+Site.hs
+server compile
