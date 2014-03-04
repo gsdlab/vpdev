@@ -140,8 +140,24 @@ ChocoSoo
 
 then, the new mapping will complement already existing mapping inherited from the root folder. Thus, all the files in the `ClaferMoo` folder will implement the `Backends` feature as well.
 
+* TODO: improve syntax of `.vp-files`, since it has a key-value structure. Could be as follows:
+
+```
+[feature name]
+file1
+file2
+```
+
+or
+
+```
+[file or folder mask]
+feature1
+feature2
+```
+
 * To annotate a fragment of a file, use the appropriate comment syntax of the used programming language to mark the beginning and end of the fragment.
-Inside the comment, to mark the beginning of the fragment, surround the list of features with `|>` and `|>` delimiters. TODO: other delimiters
+Inside the comment, to mark the beginning of the fragment, surround the list of features with `|>` and `|>` delimiters. 
 The `>` can be understood as "what's after implements the features".
 Inside the comment, to mark the end of the fragment, surround the list of features with `<|` and `<|` delimiters.
 The `<` can be understood as "what's before' implements the features".
