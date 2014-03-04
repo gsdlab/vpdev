@@ -109,11 +109,9 @@ Fully-qualified names could also be used (e.g., `::ClaferMooVisualizer::processM
 
 In general, to refer to multiple features, list `lpq names` of the features separated with any whitespace character except a new line.
 
-* To annotate a folder with a feature, add a file called `.vp-folder` and list the features it implements.
+* We do not annotate folders, since it's a particular case of files. Annotations can be done inside outside a folder by specifying folder name, or inside the folder by referring to it as `.` (dot).
 
-For example, consider the following folder/file tree:
-
-* To annotate files or folders without modifying their contents (e.g., binary files), add a file called `.vp-files` and list each file or folder name by a mask in a new line followed by a list of features in another line.
+* To annotate files or folders without modifying their contents, add a file called `.vp-files` and list each file or folder name by a mask in a new line followed by a list of features in another line.
 
 For example, a file `/.vp-files` in a project root folder (`ClaferMooVisualizer`) could contain the following (excluding the comments):
 
@@ -122,16 +120,16 @@ Server/Backends/*.*                     // mask of the files
 backends                                // feature name
 ```
 
-Also, it's possible to have a file `/.vp-files` in the `Server` subfolder:
+Also, it's possible to have a file `/.vp-files` in the `Server` subfolder. We specify two features here:
 
 ```
-server.js                               // name or mask of a concrete file
-Server processManagement::timeout       // features of server.js
-config.json                             // name or mask of the file
-processManagement::timeout              // features of config.json
+.                                       // current folder (i.e., Server)
+Server                                  // the feature : Server
+./server.js, ./config.json              // name or mask or list of a concrete file(s)
+processManagement::timeout              // features of server.js
 ```
 
-If we have `/.vp-files` in the `Backends` subfolder with the following contents
+If we have `/.vp-files` in the `Backends` subfolder with the following contents:
 
 ```
 ChocoMoo/*.*         // all files within ClaferMoo folder
@@ -140,7 +138,7 @@ ChocoSoo/*.*
 ChocoSoo
 ```
 
-then, the new mapping will complement already existing mapping inherited from the root folder. Thus, all the files in the `ClaferMoo` folder will implement `Backends` feature as well.
+then, the new mapping will complement already existing mapping inherited from the root folder. Thus, all the files in the `ClaferMoo` folder will implement the `Backends` feature as well.
 
 * To annotate a fragment of a file, use the appropriate comment syntax of the used programming language to mark the beginning and end of the fragment.
 Inside the comment, to mark the beginning of the fragment, surround the list of features with `|>` and `|>` delimiters. TODO: other delimiters
