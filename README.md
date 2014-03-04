@@ -113,28 +113,37 @@ In general, to refer to multiple features, list `lpq names` of the features sepa
 
 For example, consider the following folder/file tree:
 
-```
-ClaferMooVisualizer
-    Server
-        .vp-folder            // containing "Server processManagement"
-        Backend
-        Client
-            .vp-folder        // containing "Client processManagement"
-```
+* To annotate files or folders without modifying their contents (e.g., binary files), add a file called `.vp-files` and list each file or folder name by a mask in a new line followed by a list of features in another line.
 
-* To annotate entire files without modifying their contents (e.g., binary files), add a file called `.vp-files` and list each file name in a new line followed by a list of features in another line.
-
-For example, a file `Server/.vp-files` could contain the following (excluding the comments):
+For example, a file `/.vp-files` in a project root folder (`ClaferMooVisualizer`) could contain the following (excluding the comments):
 
 ```
-server.js                               // name of the file
+Server/Backends/*.*                     // mask of the files
+backends                                // feature name
+```
+
+Also, it's possible to have a file `/.vp-files` in the `Server` subfolder:
+
+```
+server.js                               // name or mask of a concrete file
 Server processManagement::timeout       // features of server.js
-config.json                             // name of the file
+config.json                             // name or mask of the file
 processManagement::timeout              // features of config.json
 ```
 
+If we have `/.vp-files` in the `Backends` subfolder with the following contents
+
+```
+ChocoMoo/*.*         // all files within ClaferMoo folder
+ClaferMoo            // feature name
+ChocoSoo/*.*         
+ChocoSoo
+```
+
+then, the new mapping will complement already existing mapping inherited from the root folder. Thus, all the files in the `ClaferMoo` folder will implement `Backends` feature as well.
+
 * To annotate a fragment of a file, use the appropriate comment syntax of the used programming language to mark the beginning and end of the fragment.
-Inside the comment, to mark the beginning of the fragment, surround the list of features with `|>` and `|>` delimiters.
+Inside the comment, to mark the beginning of the fragment, surround the list of features with `|>` and `|>` delimiters. TODO: other delimiters
 The `>` can be understood as "what's after implements the features".
 Inside the comment, to mark the end of the fragment, surround the list of features with `<|` and `<|` delimiters.
 The `<` can be understood as "what's before' implements the features".
