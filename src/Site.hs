@@ -41,6 +41,10 @@ handleCompiler = do
    writeText html
 -- <| compile <|
 
+
+featureModelSplice :: Monad n => T.Text -> I.Splice n
+featureModelSplice model = "featureModel" ## I.textSplice model 
+
 ------------------------------------------------------------------------------
 -- | The application's routes.
 routes :: [(ByteString, Handler App App ())]
