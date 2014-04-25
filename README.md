@@ -4,7 +4,8 @@ vpdev: Virtual Platform Development Tool
 Virtual Platform
 ----------------
 
-Virtual platform is a way of achieving some benefits of clone-and-own and product-line engineering (PLE) approaches at the same time while avoiding the drawbacks of these approaches.
+Virtual platform is an approach to the concurrent development of multiple product variants (a *product family* or a *product line*).
+Using virtual platform, one can achieve some benefits of clone-and-own and traditional product-line engineering (PLE) approaches at the same time while avoiding the drawbacks of these approaches.
 A virtual platform plays a role similar to the integrated platform in PLE with a difference that the features and the associated reusable assets are distributed among the cloned projects instead of being integrated into a platform.
 Feature-oriented development can be seen as a special case of a virtual platform with only one project.
 
@@ -27,7 +28,7 @@ Consequently, we forked the visualizer again to create the IDE and propagated a 
 During the development, we propagated new features, feature extensions, and bug fixes among these three projects.
 Finally, we extracted the common features into an integrated platform [ClaferToolsUICommonPlatform](https://github.com/gsdlab/ClaferToolsUICommonPlatform), while leaving the unique features in the individual projects.
 The feature models of the three tools are available on the [wiki page](http://t3-necsis.cs.uwaterloo.ca:8091/ClaferToolsPLE/Intro).
-Having a tool such as `vpdev` would have helped us doing feature-oriented development of the three projects and, consequently, managing and benefiting from the virtual platform approach.
+Having a tool such as `vpdev` would have helped us doing feature-oriented development of the three projects and, consequently, managing the consistency and benefiting from the virtual platform approach.
 
 ### Dogfooding
 
@@ -38,7 +39,7 @@ Virtual Platform Development Tool
 ---------------------------------
 
 The tool `vpdev` is intended to assist with the typical activities performed during feature-oriented development and with a virtual platform. 
-`vpdev` is a background process (a web server) that you run locally on a development machine, one instance per project.
+`vpdev` is a background process (a web server) that you run locally on a development machine, one instance per the virtual platform. The projects must be listed as members of the platform.
 
 The virtual platform depends on a notion of a *feature* and various kinds of *meta-data* about the *project*, the features, and the *assets* of the project.
 When the project is developed in a distributed manner (i.e., by using a distributed version control system, such as [Git](http://git-scm.com/) or [Darcs](http://darcs.net/)) the features and the meta-data are intended to be merged and integrated the same way as all other assets of the system since, in feature-oriented development, they are integral parts of the system.
@@ -48,25 +49,73 @@ When the project is developed in a distributed manner (i.e., by using a distribu
 You can begin using `vpdev` on any project and at any time during the project lifecycle. 
 You can declare the features in a feature model, directly in the code, or in both, simulataneously.
 
-`vpdev` assumes a single feature model per project contained in the `.vp-project` file in the root folder of the project (see [project feature model](project-feature-model)).
-`vpdev` assumes a feature annotation system used for embedding feature annotations directly inside the code (see [feature annotation system](#feature-annotation-system)).
+`vpdev` assumes a single feature model per project contained in the `.vp-project` file in the root folder of the project (see [project feature model](project-feature-model) below).
+`vpdev` assumes a feature annotation system used for embedding feature annotations directly inside the code (see [feature annotation system](#feature-annotation-system) below).
 `vpdev` either creates a feature model from the feature annotations embedded in the code or it simply synchronizes an existing feature model and the feature annotations. 
+
+### Platform setup
+
+`vpdev` assumes a single project to be designated as the `virtual platform` by adding a file `.virtual-platform` and listing the projects in it. 
+`vpdev` assumes the folders for each project to be siblings of the virtual platform project (all folders are assumed to have the same parent folder).
+
+For example, consider a virtual platform called `ClaferWebTools` which contains three projects: 
+`ClaferVisualizer`, `ClaferConfigurator`, `ClaferIDE`, and `ClaferToolsUICommonPlatform`.
+The folder structure should be as follows:
+
+```
+<some folder>
+    ClaferWebTools
+        .virtual-platform
+    ClaferVisualizer
+        .vp-project
+    ClaferConfigurator
+        .vp-project
+    ClaferIDE
+        .vp-project    
+    ClaferToolsUICommonPlatform
+        .vp-project    
+```
+
+The file `.virtual-platform` should simply list the four projects, each in a new line:
+
+```
+    ClaferVisualizer
+    ClaferConfigurator
+    ClaferIDE
+    ClaferToolsUICommonPlatform
+```
+
+In the special case when the virtual platform consists of a single project, it should contain both files. For example, the `vpdev` project itself has the following folder structure:
+
+```
+vpdev
+    .virtual-platform
+    .vp-project
+```
+
+The file `.virtual-platform` simply lists the project `vpdev` as the only project:
+
+```
+    vpdev
+```
 
 ### Development with `vpdev`
 
-To use `vpdev` (either for the first time or ongoing), change the folder to the root of your project and execute the `vpdev` command. 
+To use `vpdev` (either for the first time or ongoing), change the folder to the virtual platform project and execute the `vpdev` command. 
 It will 
 
 * start the server, 
-* read (compile) the `.vp-project` file (or create a new one if missing),
-* process the entire code base to locate all feature annotations,
-* read (or create if missing) the various meta-data files.
+* read the `.virtual-platform` file to retrieve the folder names of the projects
+* for each project
+    * read (compile) the `.vp-project` file (or create a new one if missing),
+    * process the entire code base to locate all feature annotations,
+    * read (or create if missing) the various meta-data files.
 
-After that, you can access the `virtual platform dashboard` by opening `http://localhost:8642` in your browser (see [Virtual Platform Dashboard](https://github.com/gsdlab/vpdev/blob/develop/README.md#virtual-platform-dashboard)).
+After that, you can access the `virtual platform dashboard` by opening `http://localhost:8642` in your browser (see [Virtual Platform Dashboard](https://github.com/gsdlab/vpdev/blob/develop/README.md#virtual-platform-dashboard) below).
 
 ### Project feature model
 
-The project feature model should be expressed using Clafer and it should contain a single top-level concrete clafer to represent the entire project and to contain all project features. 
+The project feature model should be expressed using a modeling language [Clafer](http://clafer.org) and it should contain a single top-level concrete clafer to represent the entire project and to contain all project features. 
 By default (when automatically creating the feature model for the first time), the project clafer name is created from the root folder name of the project.
 The model can contain any number of abstract clafers. 
 
@@ -105,18 +154,18 @@ For example, the feature `ClaferMoo` has a unique name in the model and can be r
 On the other hand, the feature name `timeout` occurs twice in the model and must be qualified to uniquely identify a feature either as `ClaferMoo::timeout` or `processManagement::timeout`. 
 Fully-qualified names could also be used (e.g., `::ClaferMooVisualizer::processManagement::timeout`); however, they are much longer and more brittle as compared to the least partially qualified names when the feature model evolves.
 
-#### Annotation conventions
+#### Annotation Conventions
 
 In general, to refer to multiple features, list `lpq names` of the features separated with any whitespace character except a new line.
 
-* We do not annotate folders, since it's a particular case of files. Annotations can be done inside outside a folder by specifying folder name, or inside the folder by referring to it as `.` (dot).
+* We do not annotate folders, since it's a particular case of files. Annotations can be done outside a folder by specifying folder name, or inside the folder by referring to it as `.` (dot).
 
-* To annotate files or folders without modifying their contents, add a file called `.vp-files` and list each file or folder name by a mask in a new line followed by a list of features in another line.
+* To annotate files or folders without modifying their contents, add a file called `.vp-files` and list each file or folder name by a mask in a new line followed by a list of features in another line. In general, use standard syntax allowed by the linux/unix `ls` or windows `dir` commands.
 
 For example, a file `/.vp-files` in a project root folder (`ClaferMooVisualizer`) could contain the following (excluding the comments):
 
 ```
-Server/Backends/*.*                     // mask of the files
+Server/Backends/*.*                     // mask of the files with any extension
 backends                                // feature name
 ```
 
@@ -124,7 +173,7 @@ Also, it's possible to have a file `/.vp-files` in the `Server` subfolder. We sp
 
 ```
 .                                       // current folder (i.e., Server)
-Server                                  // the feature : Server
+Server Backends help                    // the list of features using `lpqName`s
 ./server.js, ./config.json              // name or mask or list of a concrete file(s)
 processManagement::timeout              // features of server.js
 ```
@@ -139,22 +188,6 @@ ChocoSoo
 ```
 
 then, the new mapping will complement already existing mapping inherited from the root folder. Thus, all the files in the `ClaferMoo` folder will implement the `Backends` feature as well.
-
-* TODO: improve syntax of `.vp-files`, since it has a key-value structure. Could be as follows:
-
-```
-[feature name]
-file1
-file2
-```
-
-or
-
-```
-[file or folder mask]
-feature1
-feature2
-```
 
 * To annotate a fragment of a file, use the appropriate comment syntax of the used programming language to mark the beginning and end of the fragment.
 Inside the comment, to mark the beginning of the fragment, surround the list of features with `|>` and `|>` delimiters. 
@@ -184,6 +217,56 @@ For example, the `Server/server.js` file could contain a following line implemen
 
 ```
     core.timeoutProcessSetPing(process);   //    |> processManagement::timeout <|
+``` 
+#### Alternative Annotation Conventions
+
+These conventions are used in the ClaferWebTools Simulation Case Study. 
+For example, see the fully annotated project [ClaferMooVisualizeer](https://github.com/redmagic4/ClaferMooVisualizer).
+
+* To annotate a folder with a feature, add a file called `.vp-folder` and list the features it implements.
+
+For example, consider the following folder/file tree:
+
+```
+ClaferMooVisualizer
+    Server
+        .vp-folder            // containing "Server processManagement"
+        Backend
+        Client
+            .vp-folder        // containing "Client processManagement"
+```
+
+* To annotate entire files without modifying their contents (e.g., binary files), add a file called `.vp-files` and list each file name in a new line followed by a list of features in another line.
+
+For example, a file `Server/.vp-files` could contain the following (excluding the comments):
+
+```
+server.js                               // name of the file
+Server processManagement::timeout       // features of server.js
+config.json                             // name of the file
+processManagement::timeout              // features of config.json
+```
+
+* To annotate a fragment of a file, use the appropriate comment syntax of the used programming language to mark the beginning and end of the fragment.
+Inside the comment, to mark the beginning of the fragment, surround the list of features between `&begin [` and `]` delimiters.
+Inside the comment, to mark the end of the fragment, surround the list of features between `&end [` and `]` delimiters.
+
+For example, the `Server/server.js` file could contain a following fragment implementing a feature `processManagement::timeout`:
+
+```
+        //&begin [ processManagement::timeout ]
+        core.timeoutProcessClearInactivity(process);
+        core.timeoutProcessSetInactivity(process);
+        //&end [ processManagement::timeout ]
+```                
+
+* To annotate a single line of a file, use the appropriate in-line comment syntax of the used programming language to mark the line.
+Inside the comment, surround the list of features with `&feature [` and `]` delimiters.
+
+For example, the `Server/server.js` file could contain a following line implementing a feature `processManagement::timeout`:
+
+```
+    core.timeoutProcessSetPing(process);   //&line [ processManagement::timeout ]
 ``` 
 
 ### Virtual Platform Dashboard
