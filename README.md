@@ -261,7 +261,7 @@ For example, the `Server/server.js` file could contain a following fragment impl
 ```                
 
 * To annotate a single line of a file, use the appropriate in-line comment syntax of the used programming language to mark the line.
-Inside the comment, surround the list of features with `&feature [` and `]` delimiters.
+Inside the comment, surround the list of features with `&line [` and `]` delimiters.
 
 For example, the `Server/server.js` file could contain a following line implementing a feature `processManagement::timeout`:
 
@@ -271,9 +271,16 @@ For example, the `Server/server.js` file could contain a following line implemen
 
 ### Virtual Platform Dashboard
 
-The dashboard is used to view information about your feature-oriented system as well as information related to your project's relationship with other projects within the virtual platform. 
+The dashboard is used to view information about your whole product line as well as information related to your project's relationship with other projects within the virtual platform. 
 
-For example, the dashboard for the ClaferIDE project would display
+For example, the dashboard for the `ClaferWebTools` virtual platform would display
+
+* the list of projects,
+* the list of features which occur in at least two projects together with their status: `consistent`, `inconsistent`,
+* timeline showing the evolution of all projects and the instances of feature propagations over time (that the feature `matrix` was propagated from the project `ClaferMooVisualizer` to the project `ClaferConfigurator`),
+* ...
+
+For example, the dashboard for the project `ClaferIDE` would display
 
 * the features of that project together with their traceability information,
 * provenance information of the project (IDE is a fork of the visualizer) and of the features (features of the IDE were cloned from the visualizer),
