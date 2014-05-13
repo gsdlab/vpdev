@@ -4,11 +4,11 @@ Synopsis:            Virtual Platform Development Tool
 Description:         The tool vpdev is intended to assist with the typical activities performed during feature-oriented development and with a virtual platform. vpdev is a background process (a web server) that you run locally on a development machine, one instance per project.
 License:             MIT
 Author:              Michał Antkiewicz
-Maintainer:          mantkiew@gsd.uwaterloo.ca
+Maintainer:          Michał Antkiewicz <mantkiew@gsd.uwaterloo.ca>
 Stability:           Experimental
 Category:            Development
 Build-type:          Simple
-Cabal-version:       >=1.16
+Cabal-version:       >=1.18
 
 Flag development
   Description: Whether to build the server in development (interpreted) mode

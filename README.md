@@ -1,6 +1,8 @@
 vpdev: Virtual Platform Development Tool
 ========================================
 
+v0.3.6
+
 Virtual Platform
 ----------------
 
@@ -147,12 +149,12 @@ abstract Client
 
 The feature annotation system is a set of conventions for annotating folders, files, and contents of files with the features they implement.
 
-The feature annotations refer to the features using their `least partially qualified names` (`lpq name` for short), which usually are just the feature names if they are unique in the project. 
+The feature annotations refer to the features using their `least-partially-qualified names` (`lpq name` for short), which usually are just the feature names if they are unique in the project. 
 If a name is not unique, then it must be qualified partially to make the reference unique. 
 
 For example, the feature `ClaferMoo` has a unique name in the model and can be referred to simply using its name.
 On the other hand, the feature name `timeout` occurs twice in the model and must be qualified to uniquely identify a feature either as `ClaferMoo::timeout` or `processManagement::timeout`. 
-Fully-qualified names could also be used (e.g., `::ClaferMooVisualizer::processManagement::timeout`); however, they are much longer and more brittle as compared to the least partially qualified names when the feature model evolves.
+Fully-qualified names could also be used (e.g., `::ClaferMooVisualizer::processManagement::timeout`); however, they are much longer and more brittle as compared to the least-partially-qualified names when the feature model evolves.
 
 #### Annotation Conventions
 
@@ -218,6 +220,32 @@ For example, the `Server/server.js` file could contain a following line implemen
 ```
     core.timeoutProcessSetPing(process);   //    |> processManagement::timeout <|
 ``` 
+
+** Expressing logical `AND` or `OR`
+
+There are two ways of annotating a fragment with multiple features which express two different intentions: `AND` or `OR`. 
+The distinction only make sense when the features are optional and we are concerned with the removal of fragments when the features are not present in a configuration.
+
+To express that a given fragment is relevant to every listed feature and at least one of the features must be present for the fragment to be relevant, list the features in a single annotation:
+
+```
+    //    |> process timeout |>
+    core.timeoutProcessClearInactivity(process);
+    core.timeoutProcessSetInactivity(process);
+    //    <| process timeout <|
+```
+
+To express that a given fragment is relevant to all listed features and all of the features must be present for the fragment to be relevant, use multiple nested annotations each containing a single feature:
+
+```
+    //    |> process |>
+    //    |> timeout |>    
+    core.timeoutProcessClearInactivity(process);
+    core.timeoutProcessSetInactivity(process);
+    //    <| timeout <|
+    //    <| process <|
+```
+
 #### Alternative Annotation Conventions
 
 These conventions are used in the ClaferWebTools Simulation Case Study. 
