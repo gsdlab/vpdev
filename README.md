@@ -30,7 +30,7 @@ Consequently, we forked the visualizer again to create the IDE and propagated a 
 During the development, we propagated new features, feature extensions, and bug fixes among these three projects.
 Finally, we extracted the common features into an integrated platform [ClaferToolsUICommonPlatform](https://github.com/gsdlab/ClaferToolsUICommonPlatform), while leaving the unique features in the individual projects.
 The feature models of the three tools are available on the [wiki page](http://t3-necsis.cs.uwaterloo.ca:8091/ClaferToolsPLE/Intro).
-Having a tool such as `vpdev` would have helped us doing feature-oriented development of the three projects and, consequently, managing the consistency and benefiting from the virtual platform approach.
+Having a tool such as `vpdev` would have helped us doing feature-oriented development of the three projects and, consequently, managing the consistency and benefiting from the virtual platform strategy.
 
 ### Dogfooding
 
@@ -40,8 +40,9 @@ By satisfying our own needs during the development and by ensuring applicability
 Virtual Platform Development Tool
 ---------------------------------
 
-The tool `vpdev` is intended to assist with the typical activities performed during feature-oriented development and with a virtual platform. 
-`vpdev` is a background process (a web server) that you run locally on a development machine, one instance per the virtual platform. The projects must be listed as members of the platform.
+The tool `vpdev` is intended to assist with the typical activities performed during feature-oriented development and when applying the virtual platform strategy. 
+`vpdev` is a background process (a web server) that should be run locally on a development machine, one instance per the virtual platform. 
+The participating projects must be listed as members of the platform.
 
 The virtual platform depends on a notion of a *feature* and various kinds of *meta-data* about the *project*, the features, and the *assets* of the project.
 When the project is developed in a distributed manner (i.e., by using a distributed version control system, such as [Git](http://git-scm.com/) or [Darcs](http://darcs.net/)) the features and the meta-data are intended to be merged and integrated the same way as all other assets of the system since, in feature-oriented development, they are integral parts of the system.
@@ -65,7 +66,7 @@ For example, consider a virtual platform called `ClaferWebTools` which contains 
 The folder structure should be as follows:
 
 ```
-<some folder>
+<a parent folder>
     ClaferWebTools
         .virtual-platform
     ClaferVisualizer
@@ -81,13 +82,14 @@ The folder structure should be as follows:
 The file `.virtual-platform` should simply list the four projects, each in a new line:
 
 ```
-    ClaferVisualizer
-    ClaferConfigurator
-    ClaferIDE
-    ClaferToolsUICommonPlatform
+ClaferVisualizer
+ClaferConfigurator
+ClaferIDE
+ClaferToolsUICommonPlatform
 ```
 
-In the special case when the virtual platform consists of a single project, it should contain both files. For example, the `vpdev` project itself has the following folder structure:
+In the special case when the virtual platform consists of a single project, it should contain both files. 
+For example, the project `vpdev` itself has the following folder structure:
 
 ```
 vpdev
@@ -98,7 +100,7 @@ vpdev
 The file `.virtual-platform` simply lists the project `vpdev` as the only project:
 
 ```
-    vpdev
+vpdev
 ```
 
 ### Development with `vpdev`
