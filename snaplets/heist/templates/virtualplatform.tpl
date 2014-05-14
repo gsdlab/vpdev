@@ -2,9 +2,9 @@
 <html xmlns="http://www.w3.org/1999/xhtml">
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-<title>Virtual Platform</title>
-<script src="SpryAssets/SpryCollapsiblePanel.js" type="text/javascript"></script>
-<link href="SpryAssets/SpryCollapsiblePanel.css" rel="stylesheet" type="text/css" />
+<title>Virtual Platform Dashboard: ClaferWebTools</title>
+<script src="../../../static/SpryCollapsiblePanel.js" type="text/javascript"></script>
+<link href="../../../static/SpryCollapsiblePanel.css" rel="stylesheet" type="text/css" />
 <style>
 .indent{padding-left:20px}
 body {
@@ -22,26 +22,44 @@ body {
 <body>
 <table width="100%" border="0">
   <tr>
-    <td bgcolor="#33ccff"><h1>Virtual Platform</h1></td>
+    <td bgcolor="#33ccff"><h1>Virtual Platform: ClaferWebTools</h1></td>
   </tr>
   <tr valign="top">
     <td bgcolor="#FFFFFF"><div id="CollapsiblePanel1" class="CollapsiblePanel">
-      <div class="CollapsiblePanelTab" tabindex="0"><h2>Project List</h2></div>
+      <div class="CollapsiblePanelTab" tabindex="0"><h2>Projects</h2></div>
       <div class="CollapsiblePanelContent">
-        <p><a href="vpdevMain.html">ClaferMooVisualizer</a></p>
-        <p>ClaferConfigurator(cloned from <a href="vpdevMain.html">ClaferMooVisualizer</a>)</p>
-        <p>ClaferIDE(cloned from <a href="vpdevMain.html">ClaferMooVisualizer</a>)</p>
+        <p><a href="vpProject.tpl">ClaferMooVisualizer</a></p>
+        <p>ClaferConfigurator(cloned from <a href="vpProject.tpl">ClaferMooVisualizer</a>)</p>
+        <p>ClaferIDE(cloned from <a href="vpProject.tpl">ClaferMooVisualizer</a>)</p>
       </div>
     </div></td>
   </tr>
   <tr>
     <td bgcolor="#FFFFFF"><div id="CollapsiblePanel2" class="CollapsiblePanel">
+      <div class="CollapsiblePanelTab" tabindex="0"><h2>Platform Feature Model</h2></div>
+      <div class="CollapsiblePanelContent">
+        <table width="100%" border="0">
+          <tr valign="top">
+            <td>
+            <span class="claferDecl" id="c0_ClaferWebTool">abstract ClaferWebTool</span> 
+            <div class="indent">
+              <span class="claferDecl" id="c0_server">server</span><br>
+              <span class="claferDecl" id="c0_client">client</span>
+            </div>
+            </td>
+          </tr>
+        </table>
+      </div>
+    </td>
+  </tr>
+  <tr>
+    <td bgcolor="#FFFFFF"><div id="CollapsiblePanel3" class="CollapsiblePanel">
       <div class="CollapsiblePanelTab" tabindex="0"><h2>Project Feature Models</h2></div>
       <div class="CollapsiblePanelContent">
         <table width="100%" border="0">
           <tr valign="top">
             <td><div>
-<span class="claferDecl" id="c0_ClaferMooVisualizer"><a href="vpdevMain.html">ClaferMooVisualizer</a></span> 
+<span class="claferDecl" id="c0_ClaferMooVisualizer"><a href="vpProject.tpl">ClaferMooVisualizer</a></span> 
 <div class="indent">
   <span class="claferDecl" id="c0_server">server</span>
   <div class="indent">
@@ -153,7 +171,7 @@ body {
     <div class="indent">
     <span class="claferDecl" id="c1_views">views</span>
       <div class="indent">
-      <span class="claferDecl" id="c1_featureAndQualityMatrix">featureAndQualityMatrix<span class="linking">(from <a href="vpdevMain.html">ClaferMooVisualizer</a>)</span></span>
+      <span class="claferDecl" id="c1_featureAndQualityMatrix">featureAndQualityMatrix<span class="linking">(from <a href="vpProject.tpl">ClaferMooVisualizer</a>)</span></span>
         <div class="indent">
         <span class="claferDecl" id="c1_expandCollapse">expandCollapse</span></div>
         <div class="indent">
@@ -210,7 +228,7 @@ body {
       <span class="claferDecl" id="c2_forms">forms</span></div>
     </div>
     <div class="indent">
-    <span class="claferDecl" id="c2_help_pages">help_pages</span><span class="linking">(from <a href="vpdevMain.html">ClaferMooVisualizer</a>)</span></div>
+    <span class="claferDecl" id="c2_help_pages">help_pages</span><span class="linking">(from <a href="vpProject.tpl">ClaferMooVisualizer</a>)</span></div>
     <div class="indent">
     <span class="claferDecl" id="c1_automaticViewSizing">automaticViewSizing</span></div>
     <div class="indent">
@@ -242,6 +260,7 @@ body {
 <script type="text/javascript">
 var CollapsiblePanel1 = new Spry.Widget.CollapsiblePanel("CollapsiblePanel1");
 var CollapsiblePanel2 = new Spry.Widget.CollapsiblePanel("CollapsiblePanel2");
+var CollapsiblePanel3 = new Spry.Widget.CollapsiblePanel("CollapsiblePanel3");
 </script>
 </body>
 </html>

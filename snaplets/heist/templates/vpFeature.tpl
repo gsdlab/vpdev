@@ -20,21 +20,21 @@ body {
   <tr>
     <td bgcolor="#FFFFFF">
     <h2>Statistics</h2>
-    <p>Project: <a href="vpdevMain.html">ClaferMooVisualizer</a></p>
-    <p>Fully qualified name: ClaferMooVisualizer::server::<span class="claferDecl">processManagement</span>::polling</p>
-    <p>LPQ name: polling</p>
-    <p>Provenance Info: Originally created in ClaferMooVisualizer</p>
-    <p>Number of folders &amp; files: 0</p>
-    <p>Total lines of code: 400</p>
-    <p>Total lines of code annotated by embedded annotations: 400    </p>
-    <p>Number of code fragments: 6</p>
-    <p>Number of annotation lines: 12</p>
-    <p>&nbsp;</p>
-    
+    <table>
+    <tr><td>Project</td><td><a href="vpProject.tpl">ClaferMooVisualizer</a></td></tr>
+    <tr><td>Fully qualified name</td><td>ClaferMooVisualizer::server::<span class="claferDecl">processManagement</span>::polling</td></tr>
+    <tr><td>LPQ name</td><td>polling</td></tr>
+    <tr><td>Provenance Info</td><td>Originally created here</td></tr>
+    <tr><td>Number of folders &amp; files</td><td>0</td></tr>
+    <tr><td>Total lines of code</td><td>400</td></tr>
+    <tr><td>Total lines of code annotated by embedded annotations</td><td>400</td></tr>
+    <tr><td>Number of code fragments</td><td>6</td></tr>
+    <tr><td>Number of annotation lines</td><td>12</td></tr>
+    </table>
     </td>
   </tr>
   <tr>
-    <td bgcolor="#FFFFFF"><h2>Artifacts</h2>
+    <td bgcolor="#FFFFFF"><h2>Assets</h2>
     <p>In /Server/server.js: Line 435-664</p>
     <p>//&amp;begin [polling]<br />
       /* =============================================== */<br />
@@ -218,7 +218,8 @@ body {
       //&amp;end [polling]</p>
 <p>In /Server/Client/md_input.js: Line 222</p>
     <p>...</p>
-    <p>...</p></td>
+    <p>...</p>
+  </td>
   </tr>
 </table>
 </body>

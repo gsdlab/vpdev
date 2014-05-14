@@ -2,7 +2,7 @@
 <html xmlns="http://www.w3.org/1999/xhtml">
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-<title>VP Dashboard</title>
+<title>Project Dashboard</title>
 <style>
 .indent{padding-left:20px}
 body {
@@ -12,15 +12,15 @@ body {
 	color: #0C0;
 }
 </style>
-<script src="SpryAssets/SpryCollapsiblePanel.js" type="text/javascript"></script>
-<link href="SpryAssets/SpryCollapsiblePanel.css" rel="stylesheet" type="text/css" />
+<script src="../../../static/SpryCollapsiblePanel.js" type="text/javascript"></script>
+<link href="../../../static/SpryCollapsiblePanel.css" rel="stylesheet" type="text/css" />
 </head>
 
 <body>
 <table width="100%" border="0">
   <tr>
     <td colspan="2" bgcolor="#33CCFF"><h1>Project &quot;ClaferMooVisualizer&quot;</h1>
-    <p><a href="WholePlatform.html">Virtual Platform Dashboard</a></p></td>
+    <p>| <a href="virtualplatform.tpl">Virtual Platform Dashboard</a> |</p></td>
   </tr>
   <tr>
     <td bgcolor="#FFFFFF">
@@ -43,7 +43,7 @@ body {
     <div class="indent">
     <span class="claferDecl" id="c0_processManagement">processManagement</span>
       <div class="indent">
-        <a href="polling.html"><span class="claferDecl" id="c0_polling"><span class="mappedFeature">polling</span></span></a></div>
+        <a href="vpFeature.tpl"><span class="claferDecl" id="c0_polling"><span class="mappedFeature">polling</span></span></a></div>
       <div class="indent">
       <span class="claferDecl" id="c0_timeouts"><span class="mappedFeature">timeouts</span></span></div>
       <div class="indent">
@@ -116,14 +116,19 @@ body {
         <td bgcolor="#FFFFFF"><div id="CollapsiblePanel3" class="CollapsiblePanel">
           <div class="CollapsiblePanelTab" tabindex="0"><h2>Project Statistics</h2></div>
           <div class="CollapsiblePanelContent">
-            <p>Number of Declared Features:34 (3 features mapped)</p>
-            <p>Number of Annotated Features: 5 (2 undeclared features)</p>
-            <p>Total lines of code: 1000, in which 700 mapped to features(70%), 400 annotated by embedded annotation(40%), 121 lines of annotation(12.1%).</p>
-            <p>200 lines of code shared by at least two features(20%).</p>
-            <p>Number of Fragments in code: 70          </p>
+            <table>
+            <tr><td>Declared features: 34, out of which mapped features: 3</td></tr>
+            <tr><td>Annotated features: 5, out of which undeclared features: 2</td></tr>
+            <tr><td>Total lines of code: 1000, in which <br>
+              &nbsp;- 700 mapped to features (70%),<br>
+              &nbsp;- 400 annotated by embedded annotation (40%),<br>
+              &nbsp;- 121 lines of annotation (12.1%).</td></tr>
+            <tr><td>200 lines of code shared by at least two features (20%).</td></tr>
+            <tr><td>Fragments in code: 70</td></tr>
+          </table>
           </div>
         </div>
-          <p>&nbsp;</p></td>
+      </td>
       </tr>
       <tr>
         <td bgcolor="#FFFFFF">
@@ -134,8 +139,7 @@ body {
                 <p>/Server/server.js, L124 : unpaired end annotation.</p>
               </div>
             </div>
-            <p>
-          <p></td>
+        </td>
       </tr>
     </table>
      
