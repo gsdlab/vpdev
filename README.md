@@ -223,7 +223,7 @@ For example, the `Server/server.js` file could contain a following line implemen
     core.timeoutProcessSetPing(process);   //    |> processManagement::timeout <|
 ``` 
 
-** Expressing logical `AND` or `OR`
+##### Expressing logical `AND` or `OR`
 
 There are two ways of annotating a fragment with multiple features which express two different intentions: `AND` or `OR`. 
 The distinction only make sense when the features are optional and we are concerned with the removal of fragments when the features are not present in a configuration.
@@ -248,7 +248,7 @@ To express that a given fragment is relevant to all listed features and all of t
     //    <| process <|
 ```
 
-## Overlapping annotations
+##### Overlapping annotations
 
 It is also possible that the annotations are not properly nested. For example:
 
