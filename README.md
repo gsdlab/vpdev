@@ -248,6 +248,23 @@ To express that a given fragment is relevant to all listed features and all of t
     //    <| process <|
 ```
 
+## Overlapping annotations
+
+It is also possible that the annotations are not properly nested. For example:
+
+```
+    //    |> process |>
+    core.process.init();
+    //    |> timeout |>    
+    core.timeoutProcessClearInactivity(process);
+    //    <| process <|
+    core.timeoutProcessSetInactivity(process);
+    //    <| timeout <|
+```
+
+The first statement belongs only to `process`, the second to both `process` and `timeout`, and the third to `timeout` only.
+
+
 #### Alternative Annotation Conventions
 
 These conventions are used in the ClaferWebTools Simulation Case Study. 
