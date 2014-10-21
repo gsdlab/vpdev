@@ -7,8 +7,10 @@ else
 	endif
 endif
 
+all: build
+
 init:
-	cabal sandbox init 
+	cabal sandbox init --sandbox=../.clafertools-cabal-sandbox
 	cabal install --only-dependencies $(GPLK_LIBS_INCLUDES) $(MAC_USR_LIB)
 
 build:

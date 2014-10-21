@@ -1,5 +1,5 @@
 Name:                vpdev
-Version:             0.3.6
+Version:             0.3.7
 Synopsis:            Virtual Platform Development Tool
 Description:         The tool vpdev is intended to assist with the typical activities performed during feature-oriented development and with a virtual platform. vpdev is a background process (a web server) that you run locally on a development machine, one instance per project.
 License:             MIT
@@ -20,22 +20,22 @@ Executable vpdev
   main-is: Main.hs
 
   Build-depends:
-    base                      >= 4.4      && < 5,
-    clafer                    == 0.3.5.1,
-    containers                >= 0.5.0.0,
-    lens                      >= 3.7.6    && < 4.1,
-    bytestring                >= 0.9.1   && < 0.11,
-    executable-path           >= 0.0.3,
-    heist                     >= 0.13    && < 0.14,
-    MonadCatchIO-transformers >= 0.2.1   && < 0.4,
-    mtl                       >= 2       && < 3,
-    snap                      >= 0.13    && < 0.14,
-    snap-core                 >= 0.9     && < 0.11,
-    snap-server               >= 0.9     && < 0.11,
-    snap-loader-static        >= 0.9     && < 0.10,
-    text                      >= 0.11    && < 1.2,
-    time                      >= 1.1     && < 1.5,
-    xmlhtml                   >= 0.1
+    base                        < 5
+    , clafer                    == 0.3.7
+    , containers                
+    , lens                      < 4.4
+    , bytestring                
+    , executable-path           
+    , heist                    
+    , MonadCatchIO-transformers 
+    , mtl                       
+    , snap                      
+    , snap-core                 
+    , snap-server               
+    , snap-loader-static        
+    , text                      
+    , time                      
+    , xmlhtml                   
 
 
   if flag(development)
