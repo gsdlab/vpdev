@@ -1,7 +1,7 @@
 vpdev: Virtual Platform Development Tool
 ========================================
 
-v0.3.6
+v0.3.7
 
 Virtual Platform
 ----------------
@@ -61,7 +61,7 @@ You can declare the features in a feature model, directly in the code, or in bot
 `vpdev` assumes a single project to be designated as the `virtual platform` by adding a file `.virtual-platform` and listing the projects in it. 
 `vpdev` assumes the folders for each project to be siblings of the virtual platform project (all folders are assumed to have the same parent folder).
 
-For example, consider a virtual platform called `ClaferWebTools` which contains three projects: 
+For example, consider a virtual platform called `ClaferWebTools` which contains four projects: 
 `ClaferVisualizer`, `ClaferConfigurator`, `ClaferIDE`, and `ClaferToolsUICommonPlatform`.
 The folder structure should be as follows:
 
@@ -152,7 +152,7 @@ abstract Client
 The feature annotation system is a set of conventions for annotating folders, files, and contents of files with the features they implement.
 
 The feature annotations refer to the features using their `least-partially-qualified names` (`lpq name` for short), which usually are just the feature names if they are unique in the project. 
-If a name is not unique, then it must be qualified partially to make the reference unique. 
+If a name is not unique, then it must be qualified partially just enough to make the reference unique. 
 
 For example, the feature `ClaferMoo` has a unique name in the model and can be referred to simply using its name.
 On the other hand, the feature name `timeout` occurs twice in the model and must be qualified to uniquely identify a feature either as `ClaferMoo::timeout` or `processManagement::timeout`. 
@@ -193,14 +193,14 @@ ChocoSoo
 
 then, the new mapping will complement already existing mapping inherited from the root folder. Thus, all the files in the `ClaferMoo` folder will implement the `Backends` feature as well.
 
-* To annotate a fragment of a file, use the appropriate comment syntax of the used programming language to mark the beginning and end of the fragment.
+* To annotate a fragment of a file or the entire contents of a file, use the appropriate comment syntax of the used programming language to mark the beginning and end of the fragment.
 Inside the comment, to mark the beginning of the fragment, surround the list of features with `|>` and `|>` delimiters. 
 The `>` can be understood as "what's after implements the features".
 Inside the comment, to mark the end of the fragment, surround the list of features with `<|` and `<|` delimiters.
 The `<` can be understood as "what's before' implements the features".
 The new line character can be used instead of the closing delimiter.
 
-The syntax of the delimiters is based on [Comparison of programming languages (syntax)](http://en.wikipedia.org/wiki/Comparison_of_programming_languages_(syntax)) so that it can be used across all major programming languages.
+The proposed syntax of the delimiters is based on [Comparison of programming languages (syntax)](http://en.wikipedia.org/wiki/Comparison_of_programming_languages_(syntax)) so that it can be used across all major programming languages. However, the exact syntax of the delimiters should, in general, be configurable.
 
 For example, the `Server/server.js` file could contain a following fragment implementing a feature `processManagement::timeout`:
 
@@ -228,7 +228,7 @@ For example, the `Server/server.js` file could contain a following line implemen
 There are two ways of annotating a fragment with multiple features which express two different intentions: `AND` or `OR`. 
 The distinction only make sense when the features are optional and we are concerned with the removal of fragments when the features are not present in a configuration.
 
-To express that a given fragment is relevant to every listed feature and at least one of the features must be present for the fragment to be relevant, list the features in a single annotation:
+To express that a given fragment is relevant to every listed feature and at least one of the features must be present for the fragment to be relevant (logical `OR`), list the features in a single annotation:
 
 ```
     //    |> process timeout |>
@@ -237,7 +237,7 @@ To express that a given fragment is relevant to every listed feature and at leas
     //    <| process timeout <|
 ```
 
-To express that a given fragment is relevant to all listed features and all of the features must be present for the fragment to be relevant, use multiple nested annotations each containing a single feature:
+To express that a given fragment is relevant to all listed features and all of the features must be present for the fragment to be relevant (logical `AND`), use multiple nested annotations each containing a single feature:
 
 ```
     //    |> process |>
@@ -253,17 +253,21 @@ To express that a given fragment is relevant to all listed features and all of t
 It is also possible that the annotations are not properly nested. For example:
 
 ```
-    //    |> process |>
-    core.process.init();
-    //    |> timeout |>    
-    core.timeoutProcessClearInactivity(process);
-    //    <| process <|
-    core.timeoutProcessSetInactivity(process);
-    //    <| timeout <|
+1.    //    |> process |>
+2.    core.process.init();
+3.    //    |> timeout |>    
+4.    core.timeoutProcessClearInactivity(process);
+5.    //    <| process <|
+6.    core.timeoutProcessSetInactivity(process);
+7.    //    <| timeout <|
 ```
 
-The first statement belongs only to `process`, the second to both `process` and `timeout`, and the third to `timeout` only.
+The first statement on line 2 belongs to `process` only, the second statement on line 4 to both `process` and `timeout`, and the third one on line 6 to `timeout` only.
 
+#### Choosing between a file or fragment annotation for a file
+
+As a recommended practice, only the binary files or textual files that cannot be modified should be annotated using the `.vp-files` annotation. 
+In all other cases, a fragment annotation encompassing the contents of the file is recommended because it naturally co-evolves with the file contents and does not require any maintenance costs.
 
 #### Alternative Annotation Conventions
 
@@ -325,6 +329,7 @@ For example, the dashboard for the `ClaferWebTools` virtual platform would displ
 * the list of projects,
 * the list of features which occur in at least two projects together with their status: `consistent`, `inconsistent`,
 * timeline showing the evolution of all projects and the instances of feature propagations over time (that the feature `matrix` was propagated from the project `ClaferMooVisualizer` to the project `ClaferConfigurator`),
+* unannotated clones discovered automatically, which could be candidates for features,
 * ...
 
 For example, the dashboard for the project `ClaferIDE` would display
